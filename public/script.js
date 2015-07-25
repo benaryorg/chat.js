@@ -48,7 +48,12 @@ document.addEventListener('DOMContentLoaded',function()
 {
 	socket=io();
 	document.getElementById('usernameinput').value=localStorage.username||"";
-	var messages=JSON.parse(localStorage.messages||"[]");
+
+	if(!localStorage.messages)
+	{
+		localStorage.messages="[]";
+	}
+	var messages=JSON.parse(localStorage.messages);
 	messages.forEach(addMessage);
 
 	document.addEventListener('visibilitychange',function()
