@@ -55,7 +55,7 @@ addMessage=(function(data)
 	item.appendChild(textnode);
 	item.innerHTML=item.innerHTML.replace(/https?:\/\/([-\w_\.]{2,}\.?)+(\/\S*)?/g,function(match)
 	{
-		return '<a href="'+match+'">'+match+'</a>';
+		return '<a href="'+match+'" target="_blank">'+match+'</a>';
 	});
 
 	area.insertBefore(item,area.childNodes[0]);
