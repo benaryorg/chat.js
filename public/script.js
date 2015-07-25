@@ -9,7 +9,11 @@ addMessage=(function(data)
 
 	var messagestring="("+datestring+" "+timestring+") "+data.user+': '+data.message;
 
-	area.textContent=messagestring+"\n"+area.textContent;
+	var item=document.createElement("div");
+	var textnode=document.createTextNode(messagestring);
+	item.appendChild(textnode);
+
+	area.insertBefore(item,area.childNodes[0]);
 
 	if(document.hidden)
 	{
@@ -44,7 +48,7 @@ document.addEventListener('DOMContentLoaded',function()
 {
 	socket=io();
 	document.getElementById('usernameinput').value=localStorage.username||"";
-	messages=JSON.parse(localStorage.messages||"[]");
+	var messages=JSON.parse(localStorage.messages||"[]");
 	messages.forEach(addMessage);
 
 	document.addEventListener('visibilitychange',function()
