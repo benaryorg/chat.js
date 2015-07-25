@@ -16,7 +16,11 @@ notify=(function(text)
 		{
 			try
 			{
-				new Notification("New Chat Message",{body:text});
+				if(!notifications)
+				{
+					notifications=[];
+				}
+				notifications.push(new Notification("New Chat Message",{body:text}));
 			}
 			catch(e)
 			{
@@ -93,6 +97,7 @@ sendMessage=(function()
 document.addEventListener('DOMContentLoaded',function()
 {
 	socket=io();
+	notifications=null;
 	notify();
 
 	document.getElementById('usernameinput').value=localStorage.username||"";
@@ -109,6 +114,14 @@ document.addEventListener('DOMContentLoaded',function()
 		if(!document.hidden)
 		{
 			document.title=document.title.toLowerCase();
+			if(notifications)
+			{
+				notifications.forEach(function(n)
+				{
+					n.close();
+				});
+				notifications=[];
+			}
 		}
 	});
 	socket.on('chatmsg',function(data)
