@@ -53,6 +53,10 @@ addMessage=(function(data)
 	var item=document.createElement("div");
 	var textnode=document.createTextNode(messagestring);
 	item.appendChild(textnode);
+	item.innerHTML=item.innerHTML.replace(/https?:\/\/([-\w_\.]{2,}\.?)+(\/\S*)?/g,function(match)
+	{
+		return '<a href="'+match+'">'+match+'</a>';
+	});
 
 	area.insertBefore(item,area.childNodes[0]);
 
