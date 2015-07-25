@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded',function()
 {
 	socket=io();
 	document.getElementById('usernameinput').value=localStorage.username||"";
+	localStorage.messages=localStorage.messages||[];
 	document.addEventListener('visibilitychange',function()
 	{
 		if(!document.hidden)
@@ -18,6 +19,10 @@ document.addEventListener('DOMContentLoaded',function()
 		var timestring=["x"+time.getHours(),time.getMinutes(),time.getSeconds()].join(":x").replace(/x+(?=\d{2})/g,'').replace(/x/g,'0');
 		var messagestring="("+datestring+" "+timestring+") "+data.user+': '+data.message;
 		area.textContent=messagestring+"\n"+area.textContent;
+		if(localStorage.messages.push(data)>1000)
+		{
+			localStorage.messages.shift();
+		}
 
 		if(document.hidden)
 		{
