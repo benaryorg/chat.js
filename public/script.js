@@ -12,7 +12,20 @@ notify=(function(text)
 
 	if(Notification.permission==="granted")
 	{
-		new Notification("New Chat Message",{body:text});
+		if(text)
+		{
+			try
+			{
+				new Notification("New Chat Message",{body:text});
+			}
+			catch(e)
+			{
+				if(e.name=='TypeError')
+				{
+					return;
+				}
+			}
+		}
 	}
 	else
 	{
@@ -76,7 +89,7 @@ sendMessage=(function()
 document.addEventListener('DOMContentLoaded',function()
 {
 	socket=io();
-	notify("This is what a notification looks like.");
+	notify();
 
 	document.getElementById('usernameinput').value=localStorage.username||"";
 
