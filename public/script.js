@@ -12,7 +12,12 @@ document.addEventListener('DOMContentLoaded',function()
 	socket.on('chatmsg',function(data)
 	{
 		var area=document.getElementById('chatarea');
-		area.textContent=data+"\n"+area.textContent;
+
+		var time=new Date(data.time);
+		var datestring=["x"+time.getDate(),time.getMonth()+1,time.getYear()+1900].join('-x').replace(/x+(?=\d{2})/g,'').replace(/x/g,'0');
+		var timestring=["x"+time.getHours(),time.getMinutes(),time.getSeconds()].join(":x").replace(/x+(?=\d{2})/g,'').replace(/x/g,'0');
+		var messagestring="("+datestring+" "+timestring+") "+data.user+': '+data.message;
+		area.textContent=messagestring+"\n"+area.textContent;
 
 		if(document.hidden)
 		{
@@ -34,7 +39,12 @@ sendMessage=(function()
 	{
 		return;
 	}
-	socket.emit('chatmsg',user.value+': '+msg.value);
+	socket.emit('chatmsg',
+	{
+		time:new Date(),
+		user:user.value,
+		message:msg.value
+	});
 	localStorage.username=user.value;
 	msg.value="";
 });
