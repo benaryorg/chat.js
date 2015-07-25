@@ -10,6 +10,11 @@ addMessage=(function(data)
 	var messagestring="("+datestring+" "+timestring+") "+data.user+': '+data.message;
 
 	area.textContent=messagestring+"\n"+area.textContent;
+
+	if(document.hidden)
+	{
+		document.title=document.title.toUpperCase();
+	}
 });
 
 sendMessage=(function()
@@ -39,7 +44,9 @@ document.addEventListener('DOMContentLoaded',function()
 {
 	socket=io();
 	document.getElementById('usernameinput').value=localStorage.username||"";
-	localStorage.messages=localStorage.messages||[];
+	messages=JSON.parse(localStorage.messages||"[]");
+	messages.forEach(addMessage);
+
 	document.addEventListener('visibilitychange',function()
 	{
 		if(!document.hidden)
@@ -51,15 +58,14 @@ document.addEventListener('DOMContentLoaded',function()
 	{
 		addMessage(data);
 
-		if(localStorage.messages.push(data)>1000)
+		messages=JSON.parse(localStorage.messages);
+
+		if(messages.push(data)>100)
 		{
-			localStorage.messages.shift();
+			messages.shift();
 		}
 
-		if(document.hidden)
-		{
-			document.title=document.title.toUpperCase();
-		}
+		localStorage.messages=JSON.stringify(messages);
 	});
 });
 
