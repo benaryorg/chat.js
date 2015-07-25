@@ -67,6 +67,8 @@ document.addEventListener('DOMContentLoaded',function()
 		if(messages.push(data)>100)
 		{
 			messages.shift();
+			var area=document.getElementById('chatarea');
+			area.removeChild(area.lastChild)
 		}
 
 		localStorage.messages=JSON.stringify(messages);
