@@ -3,7 +3,7 @@ http=require('http'),server=http.createServer(app);
 socketio=require('socket.io'),io=socketio(server);
 morgan=require('morgan');
 
-app.use(morgan('dev'));
+app.use(morgan('combined'));
 app.use(express.static('public'));
 
 /* websocket handlers */
@@ -16,5 +16,5 @@ io.on('connection',function(socket)
 	});
 });
 
-server.listen(1337);
+server.listen(3000);
 
