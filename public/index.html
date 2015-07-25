@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf8">
+	<title>meowchat.</title>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/script.js"></script>
+</head>
+<body>
+	<form id="form" onsubmit="sendMessage();" action="javascript:void(0);">
+		<input id="messageinput" type="text" placeholder="Message" autocomplete="off" autofocus>
+		<input id="usernameinput" type="text" placeholder="Username">
+		<button type="submit">Submit</button>
+	</form>
+	<br/>
+	<pre id="chatarea">
+	</pre>
+</body>
+</html>
+
