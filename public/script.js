@@ -1,3 +1,31 @@
+notify=(function(text)
+{
+	if(!("Notification" in window))
+	{
+		return;
+	}
+
+	if(Notification.permission==='denied')
+	{
+		return;
+	}
+
+	if(Notification.permission==="granted")
+	{
+		new Notification("New Chat Message",{body:text});
+	}
+	else
+	{
+		Notification.requestPermission(function(permission)
+		{
+			if(permission==="granted")
+			{
+				notify(text);
+			}
+		});
+	}
+});
+
 addMessage=(function(data)
 {
 	var area=document.getElementById('chatarea');
@@ -18,6 +46,7 @@ addMessage=(function(data)
 	if(document.hidden)
 	{
 		document.title=document.title.toUpperCase();
+		notify(data.user+': '+data.message);
 	}
 });
 
@@ -47,6 +76,8 @@ sendMessage=(function()
 document.addEventListener('DOMContentLoaded',function()
 {
 	socket=io();
+	notify("This is what a notification looks like.");
+
 	document.getElementById('usernameinput').value=localStorage.username||"";
 
 	if(!localStorage.messages)
