@@ -19,6 +19,20 @@ want, as long as it is a JSON object.
 	[x] Only 100 Messages are being displayed
 	[x] Changes Title to Uppercase on Message when not visible
 
+## Usage
+
+Just use it as is and it will host the application on port 3000 via HTTP.
+
+Run it using
+
+	$ node index.js
+
+If you want to use HTTPS please change the source code, or use a reverse proxy.
+
+## Demo
+
+A live version is available at [chat.benary.org](https://chat.benary.org/).
+
 ## License
 
 MIT as always, see `LICENSE` file.
