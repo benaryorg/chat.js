@@ -21,7 +21,8 @@ want, as long as it is a JSON object.
 
 ## Usage
 
-Just use it as is and it will host the application on port 3000 via HTTP.
+Just use it as is and it will host the application on localhost on port 3000
+via HTTP.
 
 Run it using
 
